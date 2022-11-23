@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+#include <cmath>   
+#include <numeric> 
+#include <vector>
+#include <algorithm>
+#include <set>
+#include <map>
+using namespace std;
+
+
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    int n, k;
+    cin >> n >> k; // Длина перестановки и её номер
+    vector <bool> used(n + 1); // Массив использованных элементов
+    vector <int> p; // Массив для перестановки   
+    
+    // Перебор префикса
+    for (int i = 0; i < n; i++) {
+
+        // Нахождение факториала для количества возможных перестановок длины (n - i - 1)
+        int f = 1;
+        for (int j = 1; j <= n - i - 1; j++) {
+            f *= j;
+        }
+
+        //Перебор подходящих для позиции элемента
+        for (int x = 1; x <= n; x++) {
+
+            //Если элемент не использован ранее...
+            if (!used[x]) {
+                if (k >= f) {     // Если количество перестановок с этим числом на i-той позиции меньше, чем данный номер, то...
+                    k -= f;
+                }
+                else {           // Иначе фиксируем x на i-тую позицию
+                    used[x] = true;
+                    p.push_back(x);
+                    break;
+                }
+            }
+        }
+    }
+
+    // Вывод перестановки
+    for (int e : p) {
+        cout << e << ' ';
+    }
+
+}
