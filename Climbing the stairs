@@ -1,0 +1,32 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+// Counting the number of routes 
+// the boy can use to get 
+// from the 1st to the nth step, 
+// climbing 1 or 2 steps to choose from.
+
+int main()
+{
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+	int n = 0;
+	cin >> n;
+
+	vector <int> ways(n+1);
+
+	ways[1] = 1;
+	ways[2] = 1;
+
+	for (int i = 3; i <= n; i++)
+		ways[i] = ways[i - 1] + ways[i - 2];
+
+	cout << ways[n] << '\n';
+
+	return 0;
+}
